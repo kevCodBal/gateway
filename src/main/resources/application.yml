@@ -1,0 +1,33 @@
+server:
+  port: 1050
+
+
+spring:
+  application:
+    name: apiGateway
+
+  cloud:
+    gateway:
+      routes:
+      - id: User-Profile
+        uri: lb://User-Profile
+        predicates:
+        - Path=/user/**
+
+      - id: music-service
+        uri: lb://music-service
+        predicates:
+        - Path=/music/**
+
+      - id: movie-service
+        uri: lb://movie-service
+        predicates:
+        - Path=/movie/**
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:1010/eureka/
+
